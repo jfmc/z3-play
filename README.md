@@ -1,2 +1,3 @@
-# z3-play
-Z3 playground
+# Z3 playground
+
+(Work in progress)
