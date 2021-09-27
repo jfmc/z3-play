@@ -1,0 +1,120 @@
+/*
+  Z3 playground
+  Author: Jose F. Morales
+*/
+
+body, h2 {
+    font-family: 'Open Sans', sans-serif;
+}
+
+body {
+    margin: 0px;
+    padding: 0px;
+}
+
+.header {
+    position: fixed;
+    width: 100%;
+    height: 64px;
+    margin: 0px;
+    padding: 0px;
+    padding-left: 1em;
+    border-bottom: 1px solid #ddd;
+}
+
+/* Split the screen in half */
+.split {
+    height: 100%;
+    position: fixed;
+    z-index: 1;
+    top: 65px;
+    overflow-x: hidden;
+    padding-top: 0px;
+}
+
+/* Control the left side */
+.left {
+    width: 55%;
+    left: 0;
+}
+
+/* Control the right side */
+.right {
+    width: 45%;
+    right: 0;
+}
+
+.doc {
+    padding: 1em;
+}
+
+.monacoContainer {
+    height: 48%;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.control {
+    padding: 0.5em;
+}
+.infoContainer {
+    border-top: 1px solid #ddd;
+    margin: 0;
+    padding: 0;
+    height: 50%;
+    max-height: 40%;
+/*     max-height: 50vw; */
+}
+
+code, tt {
+    font-family: Menlo, monospace;
+}
+
+pre {
+    font-family: Menlo, monospace;
+    font-size: 10pt;
+    background: #fff5e9;
+    padding-top: 0.5em;
+    padding-left: 0.5em;
+    padding-bottom: 0.5em;
+    overflow-x: auto;
+}
+
+pre.infoContents {
+    border-top: 1px solid #ddd;
+    width: calc(100% - 2em);
+    background: #e9faff;
+    margin: 0px;
+    padding: 1em;
+    height: 100%;
+    overflow-y: scroll;
+    font-family: Menlo, monospace;
+    font-size: 10pt;
+}
+
+.load-button {
+    position: absolute;
+    right: 1em;
+    color: #006de8;
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+#run-button {
+    font-weight: bold;
+    font-size: 12pt;
+    border: 1px solid #006de8;
+    align-items: center;
+    background-color: #f7f9fa;
+    border-radius: 2px;
+    box-shadow: 0 2px 5px rgb(0 0 0 / 20%);
+    color: #006de8;
+    cursor: pointer;
+    padding: 8px 12px 8px 12px;
+    justify-content: center;
+    min-width: 3em;
+    text-decoration: none;
+}
