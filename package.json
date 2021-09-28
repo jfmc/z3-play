@@ -1,0 +1,10 @@
+{
+  "name": "z3-play",
+  "version": "0.0.1",
+  "description": "A Z3 playground using the Monaco Editor",
+  "author": "Jose F. Morales",
+  "license": "MIT",
+  "devDependencies": {
+    "monaco-editor": "^0.27.0"
+  }
+}
