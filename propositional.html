@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+    <link
+      rel="stylesheet"
+      data-name="vs/editor/editor.main"
+      href="/z3-play/node_modules/monaco-editor/min/vs/editor/editor.main.css"
+      />
+    <link rel="stylesheet" href="z3-play.css"/>
+    <title>Z3 Playground</title>
+  </head>
+  <body style="overflow: hidden">
+    <div class="header">
+      <div style="text-align: right; float: right; font-size: 80%; padding: 0.5em; margin-right: 2em; ">
+        <a href="https://github.com/jfmc/z3-play">[Source &#8599;]</a><br/>
+        A simple <a href="https://github.com/Z3Prover/z3">Z3</a>
+        playground based on the
+        <a href="https://microsoft.github.io/monaco-editor/">Monaco Editor</a>.
+        <br/>
+        <b>Acknowledgments</b>:
+        original <a href="https://www.philipzucker.com/z3-rise4fun/">rise4fun Z3 reconstruction</a>,
+        <a href="https://github.com/bramvdbogaerde/z3-wasm">z3-wasm</a>.
+        <br/>
+      </div>
+      <h2><a href="https://github.com/jfmc">jfmc</a>'s Z3 Playground</h2>
+    </div>
+    <div class="split left">
+      <div class="doc">
+<div style="color: #444; font-size: 80%;">
+[See
+<a href="https://github.com/Z3Prover/doc/tree/master/riselive/courses">the Z3 repository</a>
+for the original <code>rise4fun</code> documents]
+</div>
+
+<h2>Propositional Logic</h2>
+
+<p>
+The pre-defined sort <bb>Bool</bb> is the sort (type) of all Boolean propositional expressions.
+Z3 supports the usual Boolean operators <tt>and</tt>, <tt>or</tt>, <tt>xor</tt>, <tt>not</tt>, <tt>=&gt;</tt> (implication), <tt>ite</tt> (if-then-else).
+Bi-implications are represented using equatity <tt>=</tt>.
+The following example shows how to prove that if <tt>p</tt> implies <tt>q</tt> and <tt>q</tt> implies <tt>r</tt>, then <tt>p</tt> implies <tt>r</tt>.
+We accomplish that by showing that the negation is unsatisfiable. The command <bb>define-fun</bb> is used to define a macro (aka alias). 
+In this example, <tt>conjecture</tt> is an alias for the conjecture we want to prove.
+</p>
+<a class="listinglink" target="default" href="/web/20210125011020/https://www.rise4fun.com/Z3/6v4?frame=1&amp;menu=0&amp;course=1">load in editor</a><pre class="listing">
+(declare-const p Bool)
+(declare-const q Bool)
+(declare-const r Bool)
+(define-fun conjecture () Bool
+	(=&gt; (and (=&gt; p q) (=&gt; q r))
+		(=&gt; p r)))
+(assert (not conjecture))
+(check-sat)
+</pre>
+
+<h3>Satisfiability and Validity</h3>
+
+<p>A formula <tt>F</tt> is <b>valid</b> if <tt>F</tt> always evaluates to true for any assignment of appropriate values to its
+uninterpreted function and constant symbols. 
+A formula <tt>F</tt> is <b>satisfiable</b> if there is some assignment of appropriate values
+to its uninterpreted function and constant symbols under which <tt>F</tt> evaluates to true. 
+Validity is about finding a proof of a statement; satisfiability is about finding a solution to a set of constraints.
+Consider a formula <tt>F</tt> with some uninterpreted constants, say <tt>a</tt> and <tt>b</tt>. 
+We can ask whether <tt>F</tt> is valid, that is whether it is always true for any combination of values for 
+<tt>a</tt> and <tt>b</tt>. If <tt>F</tt> is always
+true, then <tt>not F</tt> is always false, and then <tt>not F</tt> will not have any satisfying assignment; that is, 
+<tt>not F</tt> is unsatisfiable. That is, 
+<tt>F</tt> is valid precisely when <tt>not F</tt> is not satisfiable (is unsatisfiable).
+Alternately,
+<tt>F</tt> is satisfiable if and only if <tt>not F</tt> is not valid (is invalid).
+Z3 finds satisfying assignments (or report that there are none). To determine whether a
+formula <tt>F</tt> is valid, we ask Z3 whether <tt>not F</tt> is satisfiable. 
+Thus, to check the deMorgan's law is valid (i.e., to prove it), we show its negation to be unsatisfiable.</p>
+<a class="listinglink" target="default" href="/web/20210125011020/https://www.rise4fun.com/Z3/I?frame=1&amp;menu=0&amp;course=1">load in editor</a><pre class="listing">
+(declare-const a Bool)
+(declare-const b Bool)
+(define-fun demorgan () Bool
+    (= (and a b) (not (or (not a) (not b)))))
+(assert (not demorgan))
+(check-sat)
+</pre>
+
+
+      </div>
+      <div class="split right">
+        <div class="monacoContainer" id="container"></div>
+        <div class="infoContainer">
+          <div class="control">
+            <button id="run-button">&#9654; Run</button>
+          </div>
+          <pre class="infoContents" id="info">
+        </div>
+      </div>
+    </div>
+
+    <script>
+      var require = { paths: { vs: 'node_modules/monaco-editor/min/vs' } };
+    </script>
+    <script src="node_modules/monaco-editor/min/vs/loader.js"></script>
+    <script src="node_modules/monaco-editor/min/vs/editor/editor.main.nls.js"></script>
+    <script src="node_modules/monaco-editor/min/vs/editor/editor.main.js"></script>
+
+    <script src="coi-serviceworker.js"></script>
+    <script src="z3-play.js"></script>
+    <script src="z3.js"> </script>
+  </body>
+</html>
