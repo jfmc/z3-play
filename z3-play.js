@@ -179,24 +179,19 @@ window.onload = function () {
       let div = document.createElement("div");
 
       let ta = document.createElement("pre");
-//      let result = document.createElement("code");
-//      result.style.whiteSpace = "pre-wrap";
 
       let button = document.createElement("button");
       let br = document.createElement("br");
 
       ta.style.width = "100%";
       ta.innerHTML = code.textContent.replace(/\r?\n/g, '\r\n');
-      //code.parentNode.replaceChild(ta, code);
       button.className = "load-button";
       button.innerHTML = "&#9998; Try it";
       button.onclick = () => {
-//        load_in_editor(ta.value);
         load_in_editor(code.textContent);
       };
       div.appendChild(button);
       div.appendChild(ta);
-//      div.appendChild(result);
       code.parentNode.replaceChild(div, code);
     }
   }
