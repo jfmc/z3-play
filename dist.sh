@@ -8,20 +8,20 @@ _base=$(e=$0;while test -L "$e";do d=$(dirname "$e");e=$(readlink "$e");\
      cd "$d";done;cd "$(dirname "$e")";pwd -P)
 
 # Website checkout and branch
-webrepo=../z3-play-web
+webdist=$_base/dist
 webbranch=web
 
 # Location of z3 wasm build
-z3wasm=../z3-rise4fun/out
+z3wasm=$_base/../z3-rise4fun/out
 
 # Move to the website checkout and make sure that everything is fine
-function goto_webrepo() {
-    if ! [ -x "$webrepo" ]; then
-        echo "error: $webrepo does not exist (please clone this repo and switch to '$webbranch' branch)"
+function goto_webdist() {
+    if ! [ -x "$webdist" ]; then
+        echo "error: $webdist does not exist (please clone this repo at $webdist and switch to '$webbranch' branch)"
         exit 1
     fi
-    if ! cd "$webrepo"; then
-        echo "error: could not move to $webrepo"
+    if ! cd "$webdist"; then
+        echo "error: could not move to $webdist"
         exit 1
     fi
     branch=$(git rev-parse --abbrev-ref HEAD 2> /dev/null)
@@ -113,10 +113,10 @@ function gen_html() { # file
 
 # ---------------------------------------------------------------------------
 
-echo "Copying files to $webrepo"
+echo "Copying files to $webdist"
 from=$_base
-# Populate webrepo
-goto_webrepo
+# Populate webdist
+goto_webdist
 
 # Generate html files
 # Guide
